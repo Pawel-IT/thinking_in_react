@@ -52,7 +52,7 @@ export default class DogsList extends React.Component {
 		return (
 			<div>
 				<nav className="navbar navbar-dark bg-dark">
-					<span className="navbar-brand ms-3">Love You Baby!</span>
+					<span className="navbar-brand ms-3">Doggies!</span>
 					<Button
 						onButtonClick={this.handleRefreshClick}
 						btnText="Next"
