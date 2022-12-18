@@ -3,8 +3,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import * as Icon from "react-bootstrap-icons";
 
-const baseURL = "https://dog.ceo/api/breeds/image/random";
-
 export default class DogsList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -13,7 +11,7 @@ export default class DogsList extends React.Component {
 		this.state = {
 			message: [],
 			dogURL: "https://dog.ceo/api/breeds/image/random",
-			//https://dog.ceo/api/breed/hound/images/random
+			dogBreed: "",
 		};
 	}
 
@@ -28,8 +26,12 @@ export default class DogsList extends React.Component {
 
 	handleBreedChange(e) {
 		//this.setState({ dogURL: e });
+		var CurrentURL = `https://dog.ceo/api/breed/${e}/images/random`;
+		this.setState({ dogBreed: e });
+		this.setState({ dogURL: CurrentURL });
 		console.log(e);
-		this.setState({ dogURL: e });
+		console.log(this.state);
+		this.getRandomImage();
 	}
 
 	getRandomImage() {
@@ -49,6 +51,7 @@ export default class DogsList extends React.Component {
 	}
 
 	render() {
+		console.log("Breed: " + this.state.dogBreed);
 		return (
 			<div>
 				<nav className="navbar navbar-dark bg-dark">
@@ -64,7 +67,7 @@ export default class DogsList extends React.Component {
 					<ShowImage image={this.state.message} />
 					<BreedList
 						onButtonClick={this.handleBreedChange}
-						currentImage={this.state.dogURL}
+						currentBreed={this.state.dogBreed}
 					/>
 				</div>
 			</div>
@@ -102,8 +105,6 @@ class BreedList extends React.Component {
 		axios.get(breedURL).then((response) => {
 			//setPosts(response.data);
 			this.setState({ breeds: response.data.message });
-			console.log("1 data");
-			console.log(response.data.message);
 		});
 	}
 	handleChange(e) {
@@ -119,22 +120,19 @@ class BreedList extends React.Component {
 	}
 
 	render() {
-		console.log("222----------------------------------");
-		console.log(this.state.breeds);
-
+		console.log(this.props.currentBreed);
 		const keys = Object.keys(this.state.breeds);
-		console.log(keys);
+		var buttonClass = "btn btn-primary m-2";
 		return keys.map((element, i) => {
-			console.log(this.props.CurrentImage);
-
+			if (element === this.props.currentBreed) {
+				buttonClass = "btn btn-success m-2";
+			} else {
+				buttonClass = "btn btn-primary m-2";
+			}
 			return (
 				<button
-					className="btn btn-primary m-2"
-					onClick={(e) =>
-						this.handleChange(
-							`https://dog.ceo/api/breed/${element}/images/random`
-						)
-					}
+					className={buttonClass}
+					onClick={(e) => this.handleChange(element)}
 					key={element}
 				>
 					{element}
