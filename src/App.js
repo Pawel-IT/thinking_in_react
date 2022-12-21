@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import * as Icon from "react-bootstrap-icons";
+import Button from "react-bootstrap/Button";
+import Collapse from "react-bootstrap/Collapse";
 
 export default class DogsList extends React.Component {
 	constructor(props) {
@@ -31,11 +33,16 @@ export default class DogsList extends React.Component {
 		this.setState({ dogURL: CurrentURL });
 		console.log(e);
 		console.log(this.state);
-		this.getRandomImage();
+		this.getRandomImage(e);
 	}
 
-	getRandomImage() {
-		axios.get(this.state.dogURL).then((response) => {
+	getRandomImage(breed) {
+		var breedURL = this.state.dogURL;
+		if (breed) {
+			breedURL = `https://dog.ceo/api/breed/${breed}/images/random`;
+		}
+
+		axios.get(breedURL).then((response) => {
 			//setPosts(response.data);
 			this.setState({ message: response.data.message });
 		});
@@ -56,19 +63,24 @@ export default class DogsList extends React.Component {
 			<div>
 				<nav className="navbar navbar-dark bg-dark">
 					<span className="navbar-brand ms-3">Doggies!</span>
-					<Button
+					<ShowButton
 						onButtonClick={this.handleRefreshClick}
 						btnText="Next"
 						btnIcon=<Icon.ArrowBarRight />
 						btnClass="btn btn-success me-2"
 					/>
 				</nav>
-				<div id="hi" className="container-fluid">
-					<ShowImage image={this.state.message} />
-					<BreedList
-						onButtonClick={this.handleBreedChange}
-						currentBreed={this.state.dogBreed}
-					/>
+
+				<div className="container-fluid">
+					<div className="">
+						<ShowImage image={this.state.message} />
+					</div>
+					<div className="btn-group-vertical btn-group-sm">
+						<BreedList
+							onButtonClick={this.handleBreedChange}
+							currentBreed={this.state.dogBreed}
+						/>
+					</div>
 				</div>
 			</div>
 		);
@@ -77,7 +89,7 @@ export default class DogsList extends React.Component {
 
 //Will send info to parent using the this.handleChange function
 //that we mapped when calling this Button
-class Button extends React.Component {
+class ShowButton extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
@@ -122,12 +134,12 @@ class BreedList extends React.Component {
 	render() {
 		console.log(this.props.currentBreed);
 		const keys = Object.keys(this.state.breeds);
-		var buttonClass = "btn btn-primary m-2";
+		var buttonClass = "btn btn-outline-primary";
 		return keys.map((element, i) => {
 			if (element === this.props.currentBreed) {
-				buttonClass = "btn btn-success m-2";
+				buttonClass = "btn btn-primary active";
 			} else {
-				buttonClass = "btn btn-primary m-2";
+				buttonClass = "btn btn-outline-primary";
 			}
 			return (
 				<button
@@ -146,19 +158,8 @@ class ShowImage extends React.Component {
 	render() {
 		return (
 			<figure className="figure">
-				<img
-					className="img-fluid rounded mt-1"
-					src={this.props.image}
-				/>
+				<img className="img-fluid mt-1" src={this.props.image} />
 			</figure>
-		);
-	}
-}
-
-class ShowButton extends React.Component {
-	render() {
-		return (
-			<img className="img-fluid rounded mt-1" src={this.props.image} />
 		);
 	}
 }
