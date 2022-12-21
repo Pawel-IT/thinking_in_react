@@ -71,7 +71,10 @@ export default class DogsList extends React.Component {
 
 				<div className="container-fluid">
 					<div className="">
-						<ShowImage image={this.state.message} />
+						<ShowImage
+							image={this.state.message}
+							breed={this.state.dogBreed}
+						/>
 					</div>
 					<div className="btn-group-vertical btn-group-sm">
 						<BreedList
@@ -157,6 +160,9 @@ class ShowImage extends React.Component {
 		return (
 			<figure className="figure">
 				<img className="img-fluid mt-1" src={this.props.image} />
+				<figcaption className="figure-caption">
+					{this.props.breed}
+				</figcaption>
 			</figure>
 		);
 	}
