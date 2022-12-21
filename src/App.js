@@ -2,8 +2,6 @@ import axios from "axios";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import * as Icon from "react-bootstrap-icons";
-import Button from "react-bootstrap/Button";
-import Collapse from "react-bootstrap/Collapse";
 
 export default class DogsList extends React.Component {
 	constructor(props) {
