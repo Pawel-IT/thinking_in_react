@@ -76,6 +76,22 @@ export default class DogsList extends React.Component {
 							breed={this.state.dogBreed}
 						/>
 					</div>
+					<div class="alert alert-success" role="alert">
+						Click next in the top right of the screen to cycle
+						random dogs. Or select a breed below and next will only
+						cycle through those breeds.
+					</div>
+					<p className="lead">
+						This is a sample app written by Pawel K using ReactJS to
+						brush up on my javascript skills.{" "}
+						<a
+							href="https://github.com/Pawel-IT/thinking_in_react"
+							target="_newWin"
+						>
+							Source code can be found here
+						</a>
+						.
+					</p>
 					<div className="btn-group-vertical btn-group-sm">
 						<BreedList
 							onButtonClick={this.handleBreedChange}
@@ -160,8 +176,8 @@ class ShowImage extends React.Component {
 		return (
 			<figure className="figure">
 				<img className="img-fluid mt-1" src={this.props.image} />
-				<figcaption className="figure-caption">
-					{this.props.breed}
+				<figcaption className="figure-caption text-capitalize">
+					<h2>{this.props.breed}</h2>
 				</figcaption>
 			</figure>
 		);
