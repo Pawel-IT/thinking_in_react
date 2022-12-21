@@ -176,7 +176,7 @@ class BreedList extends React.Component {
 class ShowImage extends React.Component {
 	render() {
 		return (
-			<div className="mh-100">
+			<div className="mh-100 mv-100">
 				<img className="img-fluid mt-1 dog" src={this.props.image} />
 				<p className="text-capitalize">
 					<h2>{this.props.breed}</h2>
