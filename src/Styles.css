@@ -1,0 +1,6 @@
+img.dog {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	max-height: 100vh;
+}

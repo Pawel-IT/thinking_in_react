@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import * as Icon from "react-bootstrap-icons";
+import "./Styles.css";
 
 export default class DogsList extends React.Component {
 	constructor(props) {
@@ -76,12 +77,13 @@ export default class DogsList extends React.Component {
 							breed={this.state.dogBreed}
 						/>
 					</div>
-					<div class="alert alert-success" role="alert">
-						Click next in the top right of the screen to cycle
-						random dogs. Or select a breed below and next will only
-						cycle through those breeds.
+					<div className="alert alert-success h6" role="alert">
+						Click the <strong>NEXT BUTTON</strong> in the top right
+						of the screen to cycle random dogs. Or select a breed
+						below and <strong>NEXT BUTTON</strong> will only cycle
+						through those breeds.
 					</div>
-					<p className="lead">
+					<div className="alert alert-warning" role="alert">
 						This is a sample app written by Pawel K using ReactJS to
 						brush up on my javascript skills.{" "}
 						<a
@@ -90,8 +92,8 @@ export default class DogsList extends React.Component {
 						>
 							Source code can be found here
 						</a>
-						.
-					</p>
+					</div>
+
 					<div className="btn-group-vertical btn-group-sm">
 						<BreedList
 							onButtonClick={this.handleBreedChange}
@@ -174,12 +176,12 @@ class BreedList extends React.Component {
 class ShowImage extends React.Component {
 	render() {
 		return (
-			<figure className="figure">
-				<img className="img-fluid mt-1" src={this.props.image} />
-				<figcaption className="figure-caption text-capitalize">
+			<div className="mh-100">
+				<img className="img-fluid mt-1 dog" src={this.props.image} />
+				<p className="text-capitalize">
 					<h2>{this.props.breed}</h2>
-				</figcaption>
-			</figure>
+				</p>
+			</div>
 		);
 	}
 }
